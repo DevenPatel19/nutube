@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://youtube-v31.p.rapidapi.com/search";
+export const BASE_URL = "https://youtube-v31.p.rapidapi.com";
 
 export const defaultOptions = {
     params: {
@@ -21,7 +21,6 @@ export const fetchFromAPI = async (url, customOptions = {}) => {
 
         return data;
     } catch (error) {
-        // Handle errors, log, or throw as necessary
         console.error("Error fetching data from API:", error);
         throw error;
     }
