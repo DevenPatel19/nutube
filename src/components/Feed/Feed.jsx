@@ -44,7 +44,7 @@ const Feed = () => {
                     mb={2}
                     sx={{ color: "white" }}
                 >
-                    {selectedCategory}{" "}
+                    {selectedCategory}
                     <span style={{ color: "#fc1503" }}>Videos</span>
                 </Typography>
 
