@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Typography, Box, Stack } from "@mui/material";
-import { CheckCircleIcon } from "@mui/icons-material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Video } from "../Videos/Videos";
 import { fetchFromAPI } from "../../utils/fetchFromAPI";
 
@@ -17,7 +17,12 @@ const VideoDetail = () => {
         );
     }, [id]);
 
-    const { snippet } = videoDetail;
+    if (!videoDetail?.snippet) return "Loading..";
+
+    const {
+        snippet: { title, channelId, channelTitle },
+        statistics: { viewCount, likeCount },
+    } = videoDetail;
 
     return (
         <Box minHeight="95vh">
@@ -37,8 +42,49 @@ const VideoDetail = () => {
                             fontWeight="bold"
                             p={2}
                         >
-                            {snippet.title}
+                            {title}
                         </Typography>
+                        <Stack
+                            direction="row"
+                            justifyContent="space-between"
+                            sx={{ color: "#fff" }}
+                            py={1}
+                            px={2}
+                        >
+                            <Link to={`/channel/${channelId}`}>
+                                <Typography
+                                    variant={{ sm: "subtitle1", md: "h6" }}
+                                    color="#fff"
+                                >
+                                    {channelTitle}
+                                    <CheckCircleIcon
+                                        sx={{
+                                            fontSize: "12px",
+                                            color: "gray",
+                                            ml: "5px",
+                                        }}
+                                    />
+                                </Typography>
+                            </Link>
+                            <Stack
+                                direction="row"
+                                gap="20px"
+                                alignItems="center"
+                            >
+                                <Typography
+                                    variant="body1"
+                                    sc={{ opacity: 0.7 }}
+                                >
+                                    {parseInt(viewCount).toLocaleString()} views
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    sc={{ opacity: 0.7 }}
+                                >
+                                    {parseInt(likeCount).toLocaleString()} likes
+                                </Typography>
+                            </Stack>
+                        </Stack>
                     </Box>
                 </Box>
             </Stack>
